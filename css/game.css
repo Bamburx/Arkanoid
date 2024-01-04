@@ -125,6 +125,10 @@ game-arkanoid .panel > div > span {
   content: attr(data-score);
 }
 
+[data-lifes]::before {
+  content: attr(data-lifes);
+}
+
 game-arkanoid .bricks > div[data-score="3"] {
   background-color:hsl(210, 100%, 40%)
 }
