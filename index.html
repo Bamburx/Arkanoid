@@ -1,44 +1,42 @@
 <!DOCTYPE html><html lang="pl"><head><meta charset="utf-8">
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1"
-    >
-    <meta name="theme-color" content="#000000">
-    <link href="css/bg.css" type="text/css" rel="stylesheet" media="screen">
-    <link href="css/game.css" type="text/css" rel="stylesheet" media="screen">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+  <meta name="theme-color" content="#000000">
+  <link href="css/bg.css" type="text/css" rel="stylesheet" media="screen">
+  <link href="css/game.css" type="text/css" rel="stylesheet" media="screen">
 
-    <title>CODE:ME Arkanoid</title>
-  </head><body>
-    <div class="bricks" ref="bricks"></div>
+  <title>Arkanoid</title>
+</head><body>
+  <div class="bricks" ref="bricks"></div>
 
-    <game-arkanoid id="arkanoid-1" tabindex="-1">
-      <div class="panel">
-        <div>Score: <span ref="score" data-score="0"></span></div>
-        <div>Lifes: <span ref="lifes"></span></div>
-      </div>
-      <div class="arena" ref="arena">
-        <div class="bricks" ref="bricks">
-
-
-
-        </div>
-        <div class="paddle" ref="paddle">
-        </div>
-        <div class="ball" ref="ball"></div>
-      </div>
-
-      <noscript>
-        <p>
-          This section requires JavaScript to function. Please revisit this site with scripting enabled or in a JavaScript compatible browser.
-        </p>
-      </noscript>
-    </game-arkanoid>
-
-    <div class="bricks" ref="bricks">
-
-      <a href="https://codeme.pl">CODEME</a>
+  <game-arkanoid id="arkanoid-1" tabindex="-1">
+    <div class="panel">
+      <div>Score: <span ref="score" data-score="0"></span></div>
+      <div>Lifes: <span ref="lifes" data-lifes="3"></span></div>
     </div>
-    <script src="scripts/game_11052023.js"></script>
-  </body>
+    <div class="arena" ref="arena">
+      <div class="bricks" ref="bricks">
+
+
+
+      </div>
+      <div class="paddle" ref="paddle">
+      </div>
+      <div class="ball" ref="ball"></div>
+    </div>
+
+    <noscript>
+      <p>
+        This section requires JavaScript to function. Please revisit this site with scripting enabled or in a JavaScript compatible browser.
+      </p>
+    </noscript>
+  </game-arkanoid>
+
+  <div class="bricks" ref="bricks">
+  </div>
+  <script src="scripts/game.js"></script>
+</body>
 
 </html>

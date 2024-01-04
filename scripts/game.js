@@ -115,7 +115,7 @@ function bounds(){
 bounds()
 
   if ((arenaHeight - ballWidth) <= offsetTop) {
-    // state.lifes -= 1;
+    state.lifes -= 1;
     reset();
     return;
   } // life -1
