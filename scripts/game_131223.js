@@ -31,13 +31,16 @@ const state = {
   },
   set score(value) {
     const newValue = Number(value)
+
     if (isNaN(newValue)) {
       return;
     }
+
     scoreElement.dataset.score = newValue;
   },
   set lifes(value){
     const newValue = Number(value)
+
     if (isNaN(newValue)) {
       return;
     }
@@ -58,124 +61,66 @@ const {
 
 const ballWidth = ballElement.offsetWidth;
 
-const side = [1,-1]
-const randomSide = Math.floor(Math.random() * side.length);
+
 let deltaY = -1;
-let deltaX = side[randomSide];
+let deltaX = -1;
 
 function interval() {
   const offsetTop = ballElement.offsetTop;
   const offsetLeft = ballElement.offsetLeft;
-  const {
-    right: ballRight,
-    left: ballLeft,
-    top: ballTop,
-    bottom: ballBottom
-  } = ballElement.getBoundingClientRect();
 
-  const cornerLT = document.elementFromPoint(
-    ballLeft - 1,
-    ballTop - 1
+  const element = document.elementFromPoint(
+    arenaLeft + offsetLeft - 1,
+    arenaTop + offsetTop - 1
   );
-  const cornerRT = document.elementFromPoint(
-    ballRight - 1,
-    ballTop - 1
-  );
-  const cornerLD = document.elementFromPoint(
-    ballLeft - 1,
-    ballBottom - 1
-  );
-  const cornerRD = document.elementFromPoint(
-    ballRight - 1,
-    ballBottom - 1
-  );
-const corners = [cornerLT, cornerRT, cornerLD, cornerRD]
 
-function hit(element){ //ball collisions
-  let hit = false;
-  if (element.classList.contains('brick'))  { //brick
+  if (element.classList.contains('brick')) {
     element.classList.add('hide');
     state.score += +element.dataset.score;
     deltaY *= -1;
-    hit = true;
   }
 
-  if (element.classList.contains('paddle')) { //paddle
+  if (element.classList.contains('paddle')) {
     deltaY *= -1;
-    hit = true;
   }
-  return hit
-}
-
-function bounds(){
-  for (const corner of corners) {
-    if (hit(corner)) break;
-  }
-}
-bounds()
 
   if ((arenaHeight - ballWidth) <= offsetTop) {
-    // state.lifes -= 1;
+    state.lifes -= 1;
     reset();
     return;
-  } // life -1
-
-  if (state.lifes < 1){
-    clearInterval(state.intervalUID);
-    paddleElement.removeEventListener('mousedown', onStart)
-    alert('GAME OVER')
-  }//GAME OVER
-
+  }
+  // if (state.lifes < 1){
+  //   alert('GAME OVER')
+  // }
   if (offsetTop <= 0) {
     deltaY *= -1;
-  } // colision with top
-
+  }
   if (offsetLeft <= 0 || (arenaWidth - ballWidth) <= offsetLeft) {
     deltaX *= -1;
-  }// colision with sides
+  }
 
   ballElement.style.top = `${offsetTop + deltaY}px`;
   ballElement.style.left = `${offsetLeft + deltaX}px`;
-  // ball position change
-  
-  const allBricks = bricksElement.children;
-  const checkHide = (el) => el.classList.contains('hide')
-  let allHiden = true;
-
-  for (const brick of allBricks){
-    if(!checkHide(brick)){
-      allHiden = false;
-      break;
-    }
-  }
-
-  if (allHiden) {
-    alert('YOU WIN')
-    reset();
-    return;
-  }
 }
 
-const paddleMove = function (min = 0, max = arenaWidth - paddleWidth) {
+const createOnMove = function (min = 0, max = arenaWidth - paddleWidth) {
   return function (e) {
-    const x = Math.min(max, Math.max(min, e.pageX - arenaLeft - (paddleWidth/2))) /// boundary for paddle
-    paddleElement.style.left = `${x}px` // paddle move
+    const x = Math.min(max, Math.max(min, e.pageX - arenaLeft)) /// boundary for paddle
+    paddleElement.style.left = `${x}px`
   }
 }
 
-const onMove = paddleMove()
+const onMove = createOnMove()
 
 const onStart = function (e) {
   e.stopPropagation();
   document.addEventListener('mousemove', onMove)
 
-  const ballSpeed = 1
-  state.intervalUID = setInterval(interval, ballSpeed)
+  state.intervalUID = setInterval(interval, 10)
 }
 
 document.addEventListener('mouseup', function (e) {
   document.removeEventListener('mousemove', onMove);
-  clearInterval(state.intervalUID);
 })
 
 const scoreList = [1, 3, 5]
@@ -193,10 +138,8 @@ bricksElement.innerHTML = bricksHTML;
 init()
 
 function init() { 
-  const side = [1,-1]
-  const randomSide = Math.floor(Math.random() * side.length);
-  let deltaY = -1;
-  let deltaX = side[randomSide];
+  deltaX = 1;
+  deltaY = -1;
 
   paddleElement.style.left = `${(arenaWidth - paddleWidth) / 2}px`
 
@@ -213,4 +156,3 @@ function reset() {
   paddleElement.removeEventListener('mousedown', onStart)
   init();
 }
-
