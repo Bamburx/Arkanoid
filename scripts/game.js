@@ -122,7 +122,7 @@ bounds()
 console.log('branch 1')
 console.log('branch 2')
 console.log('branch 3')
-
+console.log('branch 4')
   if (state.lifes < 1){
     clearInterval(state.intervalUID);
     paddleElement.removeEventListener('mousedown', onStart)
