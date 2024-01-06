@@ -120,8 +120,8 @@ bounds()
     return;
   } // life -1
 console.log('branch 1')
-console.log('branch 1')
-console.log('branch 1')
+console.log('branch 2')
+console.log('branch 3')
 
   if (state.lifes < 1){
     clearInterval(state.intervalUID);
