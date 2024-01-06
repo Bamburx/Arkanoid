@@ -119,7 +119,7 @@ bounds()
     reset();
     return;
   } // life -1
-
+console.log('branch 1')
   if (state.lifes < 1){
     clearInterval(state.intervalUID);
     paddleElement.removeEventListener('mousedown', onStart)
@@ -169,7 +169,7 @@ const onStart = function (e) {
   e.stopPropagation();
   document.addEventListener('mousemove', onMove)
 
-  const ballSpeed = 1
+  const ballSpeed = 100
   state.intervalUID = setInterval(interval, ballSpeed)
 }
 
