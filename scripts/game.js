@@ -172,7 +172,7 @@ const onStart = function (e) {
   e.stopPropagation();
   document.addEventListener('mousemove', onMove)
 
-  const ballSpeed = 100
+  const ballSpeed = 1
   state.intervalUID = setInterval(interval, ballSpeed)
 }
 
