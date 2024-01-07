@@ -66,6 +66,7 @@ let deltaX = side[randomSide];
 function interval() {
   const offsetTop = ballElement.offsetTop;
   const offsetLeft = ballElement.offsetLeft;
+  const paddleLeft = paddleElement.offsetLeft;
   const {
     right: ballRight,
     left: ballLeft,
@@ -73,46 +74,62 @@ function interval() {
     bottom: ballBottom
   } = ballElement.getBoundingClientRect();
 
-  const cornerLT = document.elementFromPoint(
-    ballLeft - 1,
-    ballTop - 1
+  const element = document.elementFromPoint(
+    arenaLeft + offsetLeft - 1,
+    arenaTop + offsetTop - 1
   );
-  const cornerRT = document.elementFromPoint(
-    ballRight - 1,
-    ballTop - 1
-  );
-  const cornerLD = document.elementFromPoint(
-    ballLeft - 1,
-    ballBottom - 1
-  );
-  const cornerRD = document.elementFromPoint(
-    ballRight - 1,
-    ballBottom - 1
-  );
-const corners = [cornerLT, cornerRT, cornerLD, cornerRD]
 
-function hit(element){ //ball collisions
-  let hit = false;
-  if (element.classList.contains('brick'))  { //brick
+  if (element.classList.contains('brick')) {
     element.classList.add('hide');
     state.score += +element.dataset.score;
     deltaY *= -1;
-    hit = true;
   }
 
-  if (element.classList.contains('paddle')) { //paddle
+
+//   const cornerLT = document.elementFromPoint(
+//     ballLeft - 1,
+//     ballTop - 1
+//   );
+//   const cornerRT = document.elementFromPoint(
+//     ballRight - 1,
+//     ballTop - 1
+//   );
+//   const cornerLD = document.elementFromPoint(
+//     ballLeft - 1,
+//     ballBottom - 1
+//   );
+//   const cornerRD = document.elementFromPoint(
+//     ballRight - 1,
+//     ballBottom - 1
+//   );
+// const corners = [cornerLT, cornerRT, cornerLD, cornerRD]
+
+// function hit(element){ //ball collisions
+//   let hit = false;
+//   if (element.classList.contains('brick'))  { //brick
+//     element.classList.add('hide');
+//     state.score += +element.dataset.score;
+//     deltaY *= -1;
+//     hit = true;
+//   }
+
+  // if (element.classList.contains('paddle')) { //paddle
+  //   deltaY *= -1;
+  //   hit = true;
+  // }
+  // return hit
+// }
+
+// function bounds(){
+//   for (const corner of corners) {
+//     if (hit(corner)) break;
+//   }
+// }
+// bounds()
+
+  if (paddleTop - ballWidth < offsetTop && offsetLeft > paddleLeft && offsetLeft + ballWidth < paddleLeft + paddleWidth) {
     deltaY *= -1;
-    hit = true;
   }
-  return hit
-}
-
-function bounds(){
-  for (const corner of corners) {
-    if (hit(corner)) break;
-  }
-}
-bounds()
 
   if ((arenaHeight - ballWidth) <= offsetTop) {
     state.lifes -= 1;
